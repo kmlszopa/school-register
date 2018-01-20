@@ -1,6 +1,30 @@
 package pl.kamilszopa.model;
 
-public class Teacher extends Adult {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+
+import lombok.Data;
+
+@Data
+@Entity
+public class Teacher extends Parent {
+	protected String surName;
+	protected String firstName;
+	protected String emailAdress;
+	protected String phoneNumber;
+	@OneToOne
 	private Subject subject;
-	private SchoolClass schoolClassFormTeacher;
+
+	public Teacher() {
+	}
+
+	public Teacher(String surName, String firstName, String emailAdress, String phoneNumber, Subject subject) {
+		this.surName = surName;
+		this.firstName = firstName;
+		this.emailAdress = emailAdress;
+		this.phoneNumber = phoneNumber;
+		this.subject = subject;
+	}
 }

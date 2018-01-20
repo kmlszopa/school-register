@@ -1,9 +1,24 @@
 package pl.kamilszopa.model;
 
-import java.util.ArrayList;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+import lombok.Data;
+
+@Data
+@Entity
 public class Subject {
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String name;
-	private Student student;
-	private ArrayList<Integer> grades;
+
+	public Subject(String name) {
+		this.name = name;
+	}
+
+	public Subject() {
+	}
+
 }
