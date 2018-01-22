@@ -26,6 +26,9 @@ public class SubjectGrades {
 	public SubjectGrades(Subject subject) {
 		this.subject = subject;
 		this.grades = new ArrayList<>();
+		this.grades.add(1);
+		this.grades.add(2);
+		this.grades.add(3);
 	}
 
 	public SubjectGrades() {

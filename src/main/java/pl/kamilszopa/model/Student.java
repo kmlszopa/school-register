@@ -24,8 +24,6 @@ public class Student {
 	private SchoolClass schoolClass;
 	@OneToOne
 	private Parent parent;
-	@ElementCollection(targetClass=Note.class)
-	private List<Note> notes;
 	@ElementCollection(targetClass=SubjectGrades.class)
 	private List<SubjectGrades> grades;
 
@@ -38,7 +36,6 @@ public class Student {
 		this.firstName = firstName;
 		this.schoolClass = schoolClass;
 		this.parent = parent;
-		this.notes = new ArrayList<>();
 		this.grades = grades;
 	}
 

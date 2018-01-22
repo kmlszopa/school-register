@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<link rel="icon" th:href="@{/favicon.png}" />
+
+<link rel="stylesheet"
+	th:href="@{/vendor/materialize/css/materialize.css}" />
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+<link rel="stylesheet" th:href="@{/app.css}" />
+
+<title>Dziennik szkolny</title>
+</head>
+<body>
+	<div class="valign-wrapper"
+		style="width: 100%; height: 100%; position: absolute;">
+		<div class="valign" style="width: 100%;">
+			<div class="row center-align " style="height: 300px;">
+				<h1>Dziennik szkolny</h1>
+			</div>
+			<div class="container">
+				<div class="row center-align ">
+					<div class="col s1 m6 l3"></div>
+					<div class="col s5 m6 l3 ">
+						<a
+							class="deep-purple lighten-1 waves-effect waves-light btn-large"
+							th:href="@{/teacher}">Nauczyciel</a>
+					</div>
+					<div class="col s5 m6 l3 ">
+						<a
+							class="deep-purple lighten-1 waves-effect waves-light btn-large"
+							th:href="@{/parent}">Rodzic</a>
+					</div>
+					<div class="col s1 m6 l3 "></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
+	<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Dziennik Szkolny</title>
+</head>
+<body>
+	<div th:fragment="nav-bar-student">
+		<div class="navbar-fixed">
+			<nav>
+				<div class="container">
+					<a th:href="@{/}" class="brand-logo">Dziennik Szkolny</a>
+					<ul class="right hide-on-med-and-down">
+						<li><a th:href="@{|/grades/${student.firstName}+${student.surName}|}">Oceny</a></li>
+						<li><a th:href="@{|/attendance/${student.id}|}">Obecności</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+</body>
+</html>
