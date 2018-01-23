@@ -5,14 +5,51 @@
 <title>Dziennik Szkolny</title>
 </head>
 <body>
+	<div th:fragment="student-profile-parent">
+		<div class="col l4">
+			<h2 th:text="${student.firstName} + ' ' + ${student.surName}" />
+			<h4 th:text="'Klasa: ' + ${student.schoolClass.name}" />
+			<h4
+				th:text="'Wychowawca: ' + ${student.schoolClass.teacher.firstName} + ' ' + ${student.schoolClass.teacher.surName}" />
+			<h4
+				th:text="'Telefon: ' + ${student.schoolClass.teacher.phoneNumber}" />
+			<h4 th:text="'E-mail: ' + ${student.schoolClass.teacher.emailAdress}" />
+		</div>
+	</div>
+	<div th:fragment="student-profile-teacher">
+		<div class="col l4">
+			<h2 th:text="${student.firstName} + ' ' + ${student.surName}" />
+			<h4 th:text="'Klasa: ' + ${student.schoolClass.name}" />
+			<h4
+				th:text="'Rodzic: ' + ${student.parent.firstName} + ' ' + ${student.parent.surName}" />
+			<h4 th:text="'Telefon: ' + ${student.parent.phoneNumber}" />
+			<h4 th:text="'E-mail: ' + ${student.parent.emailAdress}" />
+		</div>
+	</div>
 	<div th:fragment="nav-bar-student">
 		<div class="navbar-fixed">
 			<nav>
 				<div class="container">
 					<a th:href="@{/}" class="brand-logo">Dziennik Szkolny</a>
 					<ul class="right hide-on-med-and-down">
-						<li><a th:href="@{|/grades/${student.firstName}+${student.surName}|}">Oceny</a></li>
+						<li><a
+							th:href="@{|/grades/${student.firstName}+${student.surName}|}">Oceny</a></li>
 						<li><a th:href="@{|/attendance/${student.id}|}">Obecności</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+	<div th:fragment="nav-bar-teacher">
+		<div class="navbar-fixed">
+			<nav>
+				<div class="container">
+					<a th:href="@{/}" class="brand-logo">Dziennik Szkolny</a>
+					<ul class="right hide-on-med-and-down">
+						<!--  					teacher/attendance?studentId=+1 -->
+						<li><a th:href="@{|/teacher/grades?studentId=${student.id}|}">Oceny</a></li>
+						<li><a
+							th:href="@{|/teacher/attendance?studentId=${student.id}|}">Obecności</a></li>
 					</ul>
 				</div>
 			</nav>

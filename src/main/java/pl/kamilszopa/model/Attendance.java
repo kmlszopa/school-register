@@ -21,17 +21,25 @@ public class Attendance {
 	private long id;
 	@ManyToOne
 	private Student student;
-	@ElementCollection(targetClass=Integer.class)
-	private List<Integer> hours;
+	@ElementCollection(targetClass = Boolean.class)
+	private List<Boolean> attendanceOnClass;
 	private Date day;
 
 	public Attendance(Student student, Date date) {
 		this.student = student;
-		this.hours = new ArrayList<Integer>();
+		this.attendanceOnClass = new ArrayList<Boolean>();
 		this.day = date;
 	}
 
 	public Attendance() {
 	}
 
+	public void changeAttendance(Integer attendanceIndex) {
+		if (this.attendanceOnClass.get(attendanceIndex)) {
+			this.attendanceOnClass.set(attendanceIndex, false);
+		} else {
+			this.attendanceOnClass.set(attendanceIndex, true);
+		}
+
+	}
 }

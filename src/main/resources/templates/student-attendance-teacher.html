@@ -15,14 +15,15 @@
 <title>Dziennik szkolny > Obecności</title>
 </head>
 <body>
-	<div th:replace="layout :: nav-bar-student" />
+	<div th:replace="layout :: nav-bar-teacher" />
+
 
 	<div class="valign" style="width: 100%;">
 		<div class="gif-detail container">
 			<div class="row">
 				<div class="col s12 l12">
 					<div class="meta row">
-						<div th:replace="layout :: student-profile-parent" />
+						<div th:replace="layout :: student-profile-teacher" />
 						<div class="col l8">
 
 							<ul class="pagination">
@@ -30,11 +31,11 @@
 									Obecności
 
 									<li class="waves-effect"><a
-										th:href="@{|/attendance/${student.id}/getPreviousWeek/${attendances[0].day}|}"><i
+										th:href="@{|/teacher/attendance/${student.id}/getPreviousWeek/${attendances[0].day}|}"><i
 											class="material-icons">chevron_left</i></a></li>
 
 									<li class="waves-effect"><a
-										th:href="@{|/attendance/${student.id}/getNextWeek/${attendances[0].day}|}"><i
+										th:href="@{|/teacher/attendance/${student.id}/getNextWeek/${attendances[0].day}|}"><i
 											class="material-icons">chevron_right</i></a></li>
 								</h3>
 							</ul>
@@ -56,18 +57,20 @@
 										<tr th:each="attendance : ${attendances}">
 											<td class="center-align"
 												th:text="${#dates.format(attendance.day, 'dd/MM/yyyy')}">null</td>
+											<!-- 											iterStat.index -->
 											<th:block
-												th:each="attendanceOnClass : ${attendance.attendanceOnClass}">
-												<td class="center-align" th:if="${attendanceOnClass}">Obecny</td>
-												<td class="center-align" style="color: red;" th:unless="${attendanceOnClass}">Nieobecny</td>
+												th:each="attendanceOnClass, iterStat : ${attendance.attendanceOnClass}"
+												th:class="${iterStat.odd}? 'odd'">
+												<td class="center-align" th:if="${attendanceOnClass}"><a
+													th:href="@{|/teacher/attendance/change/${attendance.id}/${iterStat.index}|}">Obecny</a></td>
+												<td class="center-align" th:unless="${attendanceOnClass}"><a
+													style="color: red;"
+													th:href="@{|/teacher/attendance/change/${attendance.id}/${iterStat.index}|}">Nieobecny</a></td>
 											</th:block>
 										</tr>
-
-
 									</tbody>
 								</table>
 							</div>
-							<!-- 						<div><p th:text="${#dates.format(attendance, 'dd-MM-yyyy HH:mm')}"></p></div> -->
 
 						</div>
 					</div>

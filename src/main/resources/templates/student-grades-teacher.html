@@ -15,14 +15,14 @@
 <title>Dziennik szkolny > Oceny</title>
 </head>
 <body>
-	<div th:replace="layout :: nav-bar-student" />
+	<div th:replace="layout :: nav-bar-teacher" />
 
 	<div class="valign" style="width: 100%;">
 		<div class="gif-detail container">
 			<div class="row">
 				<div class="col s12 l12">
 					<div class="meta row">
-						<div th:replace="layout :: student-profile-parent" />
+						<div th:replace="layout :: student-profile-teacher" />
 						<div class="col l8">
 							<h3>Oceny</h3>
 							<div>
@@ -34,10 +34,33 @@
 										</tr>
 									</thead>
 									<tbody>
+										<!--    <img th:src="@{'/gifs/' + ${gif.name} + '.gif'}" alt="gif" /> -->
 										<tr th:each="grades : ${student.grades}">
 											<td th:text="${grades.subject.name}">null</td>
-											<td><span th:each="grade : ${grades.grades}"><span
+											<td style="width: 46%;"><span
+												th:each="grade : ${grades.grades}"><span
 													th:text="${grade} + ' '"></span></span></td>
+											<td class="input-field" id="search">
+												<form
+													th:action="@{'/teacher/grades/' + ${student.id}} +'/'  + ${grades.id}"
+													th:object="${studentList}" method="get">
+													<div class="input-field col s3 m3 l3 " id="search">
+														<select class="browser-default " id="optionsList"
+															name="grade">
+															<option value="6">6</option>
+															<option value="5">5</option>
+															<option value="4">4</option>
+															<option value="3">3</option>
+															<option value="2">2</option>
+															<option value="1">1</option>
+														</select>
+													</div>
+													<div class="input-field col s1 m1 l1 right-align">
+														<button style="height: 44px;" value="Wybierz" type="submit"
+															class="waves-effect waves-light btn">Dodaj</button>
+													</div>
+												</form>
+											</td>
 										</tr>
 
 									</tbody>
