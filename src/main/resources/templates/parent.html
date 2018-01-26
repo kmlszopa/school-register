@@ -8,8 +8,7 @@
 	th:href="@{/vendor/materialize/css/materialize.css}" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-<link rel="stylesheet" th:href="@{/app.css}" />
-
+<link rel="stylesheet" th:href="@{/vendor/app.css}" />
 <title>Dziennik szkolny</title>
 </head>
 <body>
@@ -19,34 +18,23 @@
 			<div class="row center-align " style="height: 100px;">
 				<h1>Dziennik szkolny</h1>
 			</div>
-			<div class="row">
-				<div class="col s4 m4 l4"></div>
-				<form  th:action="@{/teacher/grades}" th:object="${studentList}"
-					method="get">
-					<div class="input-field col s3 m3 l3" id="search">
-
-						<select class="browser-default" id="optionsList" name="studentId">
-							<option th:each="student : ${studentList}"
-								th:value="${student.id}"
-								th:text="${student.firstName} + ' '+   ${student.surName}">Options</option>
-						</select>
+			<div class="search-bar container">
+				<div class="row">
+					<div class="col s3 m3 l3"></div>
+					<div class="col s6 m6 l6 ">
+						<form action="/findStudent" method="get">
+							<div class="input-field">
+								<input name="name" type="search"
+									placeholder="Imię i nazwisko ucznia..." required="required"
+									autocomplete="off" /> <i class="material-icons">search</i>
+							</div>
+						</form>
 					</div>
-					<div class="input-field col s1 m1 l1">
-						<button style="height: 44px;" value="Wybierz" type="submit"
-							class="waves-effect waves-light btn">Wybierz</button>
-					</div>
-				</form>
-
-
-
-
-				<div class="col s4 m4 l4"></div>
+					<div class="col s3 m3 l3"></div>
+				</div>
 			</div>
-
 		</div>
-
 	</div>
-
 	<script th:src="@{/vendor/jquery/jquery-1.11.3.js}"></script>
 	<script th:src="@{/vendor/materialize/js/materialize.js}"></script>
 	<script th:src="@{/app.js}"></script>

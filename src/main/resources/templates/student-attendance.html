@@ -10,8 +10,7 @@
 	th:href="@{/vendor/materialize/css/materialize.css}" />
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-<link rel="stylesheet" th:href="@{/app.css}" />
-
+<link rel="stylesheet" th:href="@{/vendor/app.css}" />
 <title>Dziennik szkolny > Obecności</title>
 </head>
 <body>
@@ -30,11 +29,11 @@
 									Obecności
 
 									<li class="waves-effect"><a
-										th:href="@{|/attendance/${student.id}/getPreviousWeek/${attendances[0].day}|}"><i
+										th:href="@{|/parent/attendance/${student.id}/getPreviousWeek/${attendances[0].day}|}"><i
 											class="material-icons">chevron_left</i></a></li>
 
 									<li class="waves-effect"><a
-										th:href="@{|/attendance/${student.id}/getNextWeek/${attendances[0].day}|}"><i
+										th:href="@{|/parent/attendance/${student.id}/getNextWeek/${attendances[0].day}|}"><i
 											class="material-icons">chevron_right</i></a></li>
 								</h3>
 							</ul>

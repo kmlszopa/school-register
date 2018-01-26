@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import pl.kamilszopa.model.repository.AdultRepository;
 import pl.kamilszopa.model.repository.AttendanceRepository;
+import pl.kamilszopa.model.repository.RoleRepository;
 import pl.kamilszopa.model.repository.SchoolClassRepository;
 import pl.kamilszopa.model.repository.StudentRepository;
 import pl.kamilszopa.model.repository.SubjectGradesRepository;
@@ -21,19 +22,20 @@ import pl.kamilszopa.model.repository.TeacherRepository;
 @Component
 public class DatabaseLoader implements CommandLineRunner {
 
-	private final SchoolClassRepository schoolClassRepository;
-	private final StudentRepository studentRepository;
-	private final SubjectRepository subjectRepository;
-	private final TeacherRepository teacherRepository;
-	private final AdultRepository adultRepository;
-	private final SubjectGradesRepository subjectGradesRepository;
-	private final AttendanceRepository attendanceRepository;
+	private final SchoolClassRepository		schoolClassRepository;
+	private final StudentRepository			studentRepository;
+	private final SubjectRepository			subjectRepository;
+	private final TeacherRepository			teacherRepository;
+	private final AdultRepository			adultRepository;
+	private final SubjectGradesRepository	subjectGradesRepository;
+	private final AttendanceRepository		attendanceRepository;
+	private final RoleRepository			roleRepository;
 
 	@Autowired
 	public DatabaseLoader(AttendanceRepository attendanceRepository, SchoolClassRepository schoolClassRepository,
-			StudentRepository studentRepository, SubjectRepository subjectRepository,
-			TeacherRepository teacherRepository, AdultRepository adultRepository,
-			SubjectGradesRepository subjectGradesRepository) {
+	        StudentRepository studentRepository, SubjectRepository subjectRepository,
+	        TeacherRepository teacherRepository, AdultRepository adultRepository,
+	        SubjectGradesRepository subjectGradesRepository, RoleRepository roleRepository) {
 		super();
 		this.schoolClassRepository = schoolClassRepository;
 		this.studentRepository = studentRepository;
@@ -42,10 +44,14 @@ public class DatabaseLoader implements CommandLineRunner {
 		this.adultRepository = adultRepository;
 		this.subjectGradesRepository = subjectGradesRepository;
 		this.attendanceRepository = attendanceRepository;
+		this.roleRepository = roleRepository;
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
+
+		Role teacher = this.roleRepository.save(new Role("TEACHER"));
+		Role parent = this.roleRepository.save(new Role("PARENT"));
 		Subject eduWczesnoszkolna = this.subjectRepository.save(new Subject("Edukacja wczesnoszkolna"));
 		Subject wf = this.subjectRepository.save(new Subject("Wychowanie fizyczne"));
 		Subject jAngielski = this.subjectRepository.save(new Subject("Język angielski"));
@@ -54,10 +60,14 @@ public class DatabaseLoader implements CommandLineRunner {
 		Subject zInformatyczne = this.subjectRepository.save(new Subject("Zajęcia informtyczne"));
 
 		Parent romanCzerwinski = this.adultRepository
-				.save(new Parent("Roman", "Czerwinski", "RomanCzerwinski@armyspy.com", "password", "53 199 40 32" ));
-		Parent katarzynaGrabowska = this.adultRepository
-				.save(new Parent("Grabowska", "Katarzyna", "KasiaGrabowska@jourrapide.com", "password", "66 129 72 45"));
-
+		        .save(new Parent("Roman", "Czerwinski", "RomanCzerwinski@armyspy.com", "password", "53 199 40 32"));
+		Parent katarzynaGrabowska = this.adultRepository.save(
+		        new Parent("Grabowska", "Katarzyna", "KasiaGrabowska@jourrapide.com", "password", "66 129 72 45"));
+		romanCzerwinski.getRoles().add(parent);
+		katarzynaGrabowska.getRoles().add(parent);
+		this.adultRepository.save(katarzynaGrabowska);
+		this.adultRepository.save(romanCzerwinski);
+		
 		SubjectGrades eduWczesnoszkolnaGrades = this.subjectGradesRepository.save(new SubjectGrades(eduWczesnoszkolna));
 		SubjectGrades wfGrades = this.subjectGradesRepository.save(new SubjectGrades(wf));
 		SubjectGrades jAngielskiGrades = this.subjectGradesRepository.save(new SubjectGrades(jAngielski));
@@ -81,8 +91,11 @@ public class DatabaseLoader implements CommandLineRunner {
 		ludwikGrabowskiGrades.add(this.subjectGradesRepository.save(new SubjectGrades(religia)));
 		ludwikGrabowskiGrades.add(this.subjectGradesRepository.save(new SubjectGrades(zInformatyczne)));
 
-		Teacher krystynaCzarnecka = this.teacherRepository.save(
-				new Teacher("Czarnecka", "Krystyna", "KrysiaCzarnecka@dayrep.com", "password", "53 831 26 68", eduWczesnoszkolna));
+		Teacher krystynaCzarnecka = this.teacherRepository.save(new Teacher("Czarnecka", "Krystyna",
+		        "KrysiaCzarnecka@dayrep.com", "password", "53 831 26 68", eduWczesnoszkolna));
+		krystynaCzarnecka.getRoles().add(teacher);
+		this.teacherRepository.save(krystynaCzarnecka);
+		
 		// Teacher piotrZawadzki = this.teacherRepository
 		// .save(new Teacher("Zawadzki", "Piotr", "PiotrZawadzki@rhyta.com", "53 403 34
 		// 78", biol));
@@ -93,11 +106,12 @@ public class DatabaseLoader implements CommandLineRunner {
 		SchoolClass a3 = this.schoolClassRepository.save(new SchoolClass("3A", krystynaCzarnecka));
 
 		Student szopaKamil = this.studentRepository
-				.save(new Student("Szopa", "Kamil", a3, romanCzerwinski, szopaKamilGrades));
+		        .save(new Student("Szopa", "Kamil", a3, romanCzerwinski, szopaKamilGrades));
 		Student ludwikGrabowski = this.studentRepository
-				.save(new Student("Grabowski", "Ludwik", a3, katarzynaGrabowska, ludwikGrabowskiGrades));
+		        .save(new Student("Grabowski", "Ludwik", a3, katarzynaGrabowska, ludwikGrabowskiGrades));
 		generateAttendance(szopaKamil);
 		generateAttendance(ludwikGrabowski);
+		
 	}
 
 	private void generateAttendance(Student student) {

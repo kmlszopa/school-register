@@ -1,8 +1,16 @@
 package pl.kamilszopa.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
@@ -25,6 +33,9 @@ public class Parent {
 	@NotEmpty(message = "*Please provide your password")
 	protected String password;
 	protected String phoneNumber;
+	@ManyToMany
+	protected Set<Role> roles;
+	protected int active;
 
 	public Parent() {
 	}
@@ -35,6 +46,8 @@ public class Parent {
 		this.emailAdress = emailAdress;
 		this.password = password;
 		this.phoneNumber = phoneNumber;
+		this.active = 1;
+		this.roles = new HashSet<Role>();
 	}
 
 	

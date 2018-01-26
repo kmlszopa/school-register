@@ -8,9 +8,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -46,28 +48,22 @@ public class TeacherController {
 	@Autowired
 	private AttendanceRepository attendanceRepository;
 
-	@RequestMapping(value = "/teacher")
-	public String showLogin(ModelMap modelMap) {
 
-		return ("login-like-teacher");
-	}
-
-	@RequestMapping(value = "/teacherLogin")
-	public String searchStudent(@RequestParam(value = "name") String name, ModelMap modelMap) {
-		String[] splitedName = name.split(" ");
-		String firstName = splitedName[0];
-		String surName = splitedName[1];
-		Teacher teacher = this.teacherRepository.findBySurNameAndFirstName(surName, firstName);
+	@RequestMapping(value = "/teacherPickStudent")
+	public String searchStudent(ModelMap modelMap) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		User principal = (User) authentication.getPrincipal();
+		Teacher teacher = this.teacherRepository.findByEmailAdress(principal.getUsername());
 		SchoolClass schoolClass = this.schoolClassRepository.getSchoolClassByTeacher(teacher);
-		List<Student> studentList = this.studentRepository.getStudentsBySchoolClass(schoolClass);
+		List<Student> studentList = this.studentRepository.findStudentsBySchoolClass(schoolClass);
 		modelMap.addAttribute("studentList", studentList);
-		return "pick-student";
+		return "pick-student-teacher";
 	}
 
 	@RequestMapping(value = "/teacher/grades")
 	public String studentGrades(@RequestParam(value = "studentId") Long id, ModelMap modelMap) {
 		if (id == null) {
-			return "pick-student";
+			return "pick-student-teacher";
 		}
 		Student student = this.studentRepository.findOne(id);
 		modelMap.addAttribute("student", student);

@@ -5,8 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import pl.kamilszopa.model.Parent;
 import pl.kamilszopa.model.Teacher;
 
-public interface AdultRepository extends CrudRepository<Parent, Long> {
-	Parent findBySurNameAndFirstName(String surName, String firstName);
+public interface ParentRepository extends CrudRepository<Parent, Long> {
 
 	Parent findByEmailAdress(String emailAdress);
 }
