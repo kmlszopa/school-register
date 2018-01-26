@@ -54,9 +54,9 @@ public class DatabaseLoader implements CommandLineRunner {
 		Subject zInformatyczne = this.subjectRepository.save(new Subject("Zajęcia informtyczne"));
 
 		Parent romanCzerwinski = this.adultRepository
-				.save(new Parent("Roman", "Czerwinski", "RomanCzerwinski@armyspy.com", "53 199 40 32"));
+				.save(new Parent("Roman", "Czerwinski", "RomanCzerwinski@armyspy.com", "password", "53 199 40 32" ));
 		Parent katarzynaGrabowska = this.adultRepository
-				.save(new Parent("Grabowska", "Katarzyna", "KasiaGrabowska@jourrapide.com", "66 129 72 45"));
+				.save(new Parent("Grabowska", "Katarzyna", "KasiaGrabowska@jourrapide.com", "password", "66 129 72 45"));
 
 		SubjectGrades eduWczesnoszkolnaGrades = this.subjectGradesRepository.save(new SubjectGrades(eduWczesnoszkolna));
 		SubjectGrades wfGrades = this.subjectGradesRepository.save(new SubjectGrades(wf));
@@ -82,7 +82,7 @@ public class DatabaseLoader implements CommandLineRunner {
 		ludwikGrabowskiGrades.add(this.subjectGradesRepository.save(new SubjectGrades(zInformatyczne)));
 
 		Teacher krystynaCzarnecka = this.teacherRepository.save(
-				new Teacher("Czarnecka", "Krystyna", "KrysiaCzarnecka@dayrep.com", "53 831 26 68", eduWczesnoszkolna));
+				new Teacher("Czarnecka", "Krystyna", "KrysiaCzarnecka@dayrep.com", "password", "53 831 26 68", eduWczesnoszkolna));
 		// Teacher piotrZawadzki = this.teacherRepository
 		// .save(new Teacher("Zawadzki", "Piotr", "PiotrZawadzki@rhyta.com", "53 403 34
 		// 78", biol));
