@@ -1,6 +1,7 @@
 package pl.kamilszopa.model;
 
 import java.util.HashSet;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

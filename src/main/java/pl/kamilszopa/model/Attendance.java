@@ -40,6 +40,7 @@ public class Attendance {
 		} else {
 			this.attendanceOnClass.set(attendanceIndex, true);
 		}
-
 	}
+
+
 }

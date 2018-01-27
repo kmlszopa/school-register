@@ -49,6 +49,18 @@ public class Parent {
 		this.active = 1;
 		this.roles = new HashSet<Role>();
 	}
+	public Parent(String surName, String firstName, String emailAdress, String password, String phoneNumber, Role role) {
+		this.surName = surName;
+		this.firstName = firstName;
+		this.emailAdress = emailAdress;
+		this.password = password;
+		this.phoneNumber = phoneNumber;
+		this.active = 1;
+		this.roles = new HashSet<Role>();
+		this.roles.add(role);
+	}
+
+
 
 	
 }
